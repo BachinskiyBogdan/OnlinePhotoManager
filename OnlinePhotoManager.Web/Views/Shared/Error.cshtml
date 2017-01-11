@@ -1,0 +1,11 @@
+﻿@model string
+@{
+    ViewBag.Title = "Error";
+}
+
+
+<hgroup>
+    <h1>Ошибка.</h1>
+    <h2>@Model</h2>
+</hgroup>
+@Html.ActionLink("Return", "Index", "Albums");

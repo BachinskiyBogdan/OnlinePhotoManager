@@ -1,0 +1,87 @@
+﻿@model IList<PictureViewModel>
+@{
+    ViewBag.Title = "AddPictures";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Custom/EditMenu.js" type="text/javascript"></script>
+}
+
+@section search
+{
+    <div class="search-block">
+        @using (Html.BeginForm("Album", "Albums", new { ViewBag.userName },
+            FormMethod.Get, new { @class = "search" }))
+        {
+            @Html.TextBox("searchRequest", null, new { @class = "search-box", placeholder = "search picture..." })
+            <input type="submit" value="SEARCH" class="search-button" />
+        }
+    </div>
+}
+@section editBlock
+{
+    <div class="edit-block">
+
+        <div style="float: left; margin-left: 20px">
+            <a class="edit-block-item" href="@Url.Action("Album", "Albums",
+                new { ViewBag.userName, ViewBag.searchRequest, ViewBag.albumName })">Back to album</a>
+        </div>
+    </div>
+}
+
+<div class="body">
+
+    <div class="albums-container">
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            <div class="album-container">
+                <div>
+                    <img src="@Url.Action("GetPictureIcon", new { controller = "Pictures", pictureId = Model[i].Picture.Id })" />
+                    <div class="albums-container-div">@Model[i].Picture.Name</div>
+                    <div class="checkbox-indicator checkbox-container">
+                        @if (Model[i].Picture.IsPrivate)
+                        {
+                            <div class="private"></div>
+                        }
+                        else
+                        {
+                            <div class="public"></div>
+                        }
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    @if (!Model[i].IsAdded)
+                    {
+
+                        <a href="@Url.Action("AddPictureToAlbum", "Albums",
+                                         new { pictureName = Model[i].Picture.Name, ViewBag.albumName, index = i })" class="base-link add-link">Add Picture</a>
+
+                    }
+                    else
+                    {
+                        <span class="base-link added-picture">Already Added</span>
+                    }
+                    @if (Model[i].IsAdded)
+                    {
+
+                        <a href="@Url.Action("DeletePictureFromAlbum", "Albums",
+                                         new { pictureName = Model[i].Picture.Name, ViewBag.albumName, index = i })"
+                           class="base-link delete-link">Delete Picture</a>
+
+                    }
+                    else
+                    {
+
+                        <a href="@Url.Action("DeletePictureFromAlbum", "Albums",
+                                         new { pictureName = Model[i].Picture.Name, ViewBag.albumName, index = i })"
+                           class="not-active base-link delete-link ">Delete Picture</a>
+
+                    }
+
+                </div>
+            </div>
+        }
+        @Html.Action("AddPicturesNavigation", new { ViewBag.albumName, ViewBag.userName, ViewBag.searchRequest })
+    </div>
+</div>

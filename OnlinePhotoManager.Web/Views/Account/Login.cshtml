@@ -1,0 +1,42 @@
+﻿@model OnlinePhotoManager.Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="body body-edit">
+    
+    <h2>Login</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary();
+        <table>
+            <tr>
+                <td>@Html.LabelFor(x => x.Name)</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Password)</td>
+                <td>@Html.EditorFor(x => x.Password)</td>
+            </tr>
+        </table>
+        <div class="submit"><input type="submit" value="Log In" /></div>
+    }
+
+</div>
+
+
+@section scripts
+{
+    @*<script type="text/javascript">
+        function resizeInput() {
+            $(this).attr('size', $(this).val().length);
+        }
+        $(document).ready($('input[type="text"]')
+    // event handler
+    .keyup(resizeInput)
+    // resize on page load
+    .each(resizeInput));
+    </script>*@
+}

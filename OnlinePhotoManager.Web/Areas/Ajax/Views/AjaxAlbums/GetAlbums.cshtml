@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Album>
+
+   
+@foreach (var album in Model)
+{
+    <div class="album-container">
+        
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#ajax-main-body"
+           data-ajax-loading="#ajax-loading-container" data-ajax-loading-duration="2000"
+           data-ajax-url="@Url.RouteUrl( new { action = "Album", controller = "AjaxAlbums", albumName = album.Name, ViewBag.userName })"
+           href="">
+            
+            <img src="@Url.Action("GetAlbumPicture", new {controller = "AjaxAlbums", albumName = album.Name})" style="margin: 10px 10px 0 10px" />
+            <div class="albums-container-div">@album.Name</div>
+            <div class="checkbox-indicator checkbox-container">
+                @{
+                    var i = 0;
+                }
+                @if (album.IsPrivate)
+                {
+                    <div class="private"></div>
+                }
+                else
+                {
+                    <div class="public"></div>
+                }
+            </div>
+
+        </a>
+
+    </div>
+}
+        

@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = ViewBag.albumName;
+
+}
+
+    <script src="~/Scripts/Custom/EditMenu.js" type="text/javascript"></script>
+    <script>
+    function showAdvancedSearch() {
+        if ($('.advanced-search-block').attr('style') == "display: block") {
+            $('.advanced-search-block').attr('style', 'display: none');
+        } else {
+            $('.advanced-search-block').attr('style', 'display: block');
+        }
+    }
+
+    </script>
+
+    <div class="search-block">
+        @using (Ajax.BeginForm("Album", "AjaxAlbums", new { ViewBag.userName },
+        new AjaxOptions()
+        {
+            Url = @Url.RouteUrl(new { action = "Album", controller = "AjaxAlbums", ViewBag.albumName, ViewBag.userName }),
+            UpdateTargetId = "ajax-main-body"
+        },
+        new { @class = "search" }))
+        {
+            @Html.TextBox("searchRequest", null, new { @class = "search-box", placeholder = "search picture..." })
+            <input type="submit" value="SEARCH" class="search-button" />
+        }
+        <input type="button" value="ADVANCED SEARCH" class="search-button" onclick="showAdvancedSearch()" />
+
+    </div>
+    <div class="advanced-search-block">
+        @Html.Action("AdvanceSearch", "AjaxAlbums", new { ViewBag.albumName })
+    </div>
+
+    <div class="edit-block">
+
+        <div style="float: left; margin-left: 20px">
+            <a class="edit-block-item" href="@Url.RouteUrl("Ajax_MainScheme",
+            new { action = "Index", controller = "AjaxAlbums", ViewBag.userName, ViewBag.searchRequest })">Back to albums</a>
+        </div>
+        <div class="left">
+            <a class="edit-block-item" href="@Url.RouteUrl("Ajax_AlbumScheme",
+            new { action = "AddNewPicture", controller = "AjaxPictures", ViewBag.albumName, userName = User.Identity.Name })">Add Picture</a>
+        </div>
+        <div class="left">
+            <a class="edit-block-item" href="@Url.Action("EditAlbum", "AjaxAlbums",
+            new { ViewBag.albumName })">Edit Album</a>
+        </div>
+        <div class="left">
+            <a class="edit-block-item" id="delete" href="@Url.Action("DeleteAlbum", "AjaxAlbums",
+            new { ViewBag.albumName })">Delete Album</a>
+        </div>
+
+        <div class="right">
+            <a class="edit-block-item" id="manage">Manage Album</a>
+        </div>
+
+    </div>
+
+
+<div class="body">
+
+    <div class="albums-container" id ="ajax-albums-container">
+        
+        @Html.Action("GetAlbumPictures", new { ViewBag.albumName, ViewBag.userName, ViewBag.searchRequest, ViewBag.page })
+        
+    </div>
+
+    @Html.Action("PicturesNavigation", new { ViewBag.albumName, ViewBag.userName, ViewBag.searchRequest, ViewBag.picturesPerPage })
+
+</div>

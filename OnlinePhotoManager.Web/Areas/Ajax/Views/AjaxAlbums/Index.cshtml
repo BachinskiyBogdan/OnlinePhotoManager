@@ -1,0 +1,47 @@
+﻿@model IList<Album>
+
+@{
+    ViewBag.Title = "Ajax Albums";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Custom/EditMenu.js" type="text/javascript"></script>
+}
+
+@section search
+{
+    <div class="search-block">
+        @using (Html.BeginForm("Index", "Albums", new { ViewBag.userName },
+        FormMethod.Get, new { @class = "search" }))
+        {
+            @Html.TextBox("searchRequest", null, new { @class = "search-box", placeholder = "search album..." })
+            <input type="submit" value="SEARCH" class="search-button" />
+        }
+    </div>
+}
+@section editBlock
+{
+    <div class="edit-block">
+
+        <div class="left">
+            <a class="edit-block-item" href="@Url.Action("AddNewAlbum", "Albums")">Add Album</a>
+        </div>
+
+        <div class="right">
+            <a class="edit-block-item" id="manage">Manage Albums</a>
+        </div>
+
+    </div>
+}
+
+
+<div class="body">
+    
+    <div class="albums-container" id="ajax-albums-container">
+        @Html.Action("GetAlbums", "AjaxAlbums", new { ViewBag.userName, ViewBag.searchRequest })
+    </div>
+
+    @Html.Action("AlbumsNavigation", new { ViewBag.userName, ViewBag.searchRequest })
+
+</div>

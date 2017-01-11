@@ -1,0 +1,20 @@
+﻿@model int
+
+@{
+    var pages = Math.Ceiling((double)Model / ViewBag.picturesPerPage);
+}
+
+<div class="navigation-container">
+    @for (var i = 1; i <= pages; i++)
+    {
+        @Ajax.RouteLink(i.ToString("D"), "Ajax_MainScheme",
+        new { action = "Album", controller = "AjaxAlbums", ViewBag.albumName, ViewBag.userName, ViewBag.searchRequest, page = i },
+        new AjaxOptions()
+        {
+            Url = Url.Action("GetAlbumPictures", "AjaxAlbums", 
+                    new { action = "Album", controller = "Albums", ViewBag.albumName, ViewBag.userName, ViewBag.searchRequest, page = i }),
+            UpdateTargetId = "ajax-albums-container"
+        },
+        new { @class = "navigation-links" })
+    }
+</div>

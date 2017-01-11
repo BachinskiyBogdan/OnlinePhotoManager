@@ -1,0 +1,50 @@
+﻿@model PictureSearchViewModel
+
+<div class="body-edit">
+    @using (Html.BeginForm("Album", "Albums", new { ViewBag.albumName }, FormMethod.Get))
+    {
+        <table>
+            <tr>
+                <td>@Html.LabelFor(x => x.Name)</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Date)</td>
+                <td>@Html.EditorFor(x => x.Date)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Place)</td>
+                <td>@Html.EditorFor(x => x.Place)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+                <td>@Html.EditorFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.FocalLength)</td>
+                <td>@Html.EditorFor(x => x.FocalLength)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Diaphragm)</td>
+                <td>@Html.EditorFor(x => x.Diaphragm)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.ISO)</td>
+                <td>@Html.EditorFor(x => x.ISO)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.ShutterSpeed)</td>
+                <td>@Html.EditorFor(x => x.ShutterSpeed)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.IsFlash)</td>
+                <td>@Html.EditorFor(x => x.IsFlash)</td>
+            </tr>
+            <tr>
+                
+            </tr>
+        </table>
+
+    <input type="submit" value="search" style="margin-left:130px; margin-top: 15px" />
+    }
+</div>

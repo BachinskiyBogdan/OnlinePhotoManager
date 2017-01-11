@@ -1,0 +1,54 @@
+﻿@model Album
+@{
+    ViewBag.Title = "EditAlbum";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Custom/previewImage.js" type="text/javascript"></script>
+}
+
+<h2>Edit Album: @Model.Name</h2>
+
+<div class="body body-edit">
+
+    @using (Html.BeginForm("EditAlbum", "AjaxAlbums",
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <table>
+            <tr>
+                <td>@Html.HiddenFor(x => x.Id)</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(x => x.CoverData)</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(x => x.CoverMimeType)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Name)</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.IsPrivate)</td>
+                <td>@Html.EditorFor(x => x.IsPrivate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Description)</td>
+                <td>@Html.EditorFor(x => x.Description)</td>
+            </tr>
+        </table>
+        <div class="cover-preview">
+            <img src="@Url.Action("GetAlbumPicture", new { albumName = Model.Name})" id="cover-preview" />
+            <p>Choose album cover: <input type="file" name="image" onchange="PreviewImg(this)" /></p>
+        </div>
+        <div class="submit">
+            <input class="submit" type="submit" value="Save Album" />
+        </div>
+    }
+</div>
+
+
+

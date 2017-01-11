@@ -1,0 +1,81 @@
+﻿@model Picture
+@{
+    ViewBag.Title = "AddNewPicture";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Custom/previewImage.js" type="text/javascript"></script>
+}
+
+<h2>Add New Picture</h2>
+
+<div class="body body-edit">
+
+    @using (Html.BeginRouteForm("AlbumScheme",
+        new {action = "AddNewPicture", controller = "Pictures", ViewBag.albumName},
+        FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+
+        <table>
+            <tr>
+                <td>@Html.HiddenFor(x => x.Id)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Name)</td>
+                <td>@Html.EditorFor(x => x.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.IsPrivate)</td>
+                <td>@Html.EditorFor(x => x.IsPrivate)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Date)</td>
+                <td>@Html.EditorFor(x => x.Date)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Place)</td>
+                <td>@Html.EditorFor(x => x.Place)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+                <td>@Html.EditorFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.FocalLength)</td>
+                <td>@Html.EditorFor(x => x.FocalLength)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Diaphragm)</td>
+                <td>@Html.EditorFor(x => x.Diaphragm)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.ShutterSpeed)</td>
+                <td>@Html.EditorFor(x => x.ShutterSpeed)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.ISO)</td>
+                <td>@Html.EditorFor(x => x.ISO)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.IsFlash)</td>
+                <td>@Html.EditorFor(x => x.IsFlash)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Description)</td>
+                <td>@Html.EditorFor(x => x.Description)</td>
+            </tr>
+        </table>
+
+        <div class="cover-preview">
+            <img src="" id="cover-preview" style="display: none" />
+            <p>Choose picture: <input type="file" name="image" onchange=" PreviewImg(this) " /></p>
+        </div>
+
+        <div class="submit">
+            <input class="submit" type="submit" value="Add New Picture" />
+        </div>
+    }
+</div>

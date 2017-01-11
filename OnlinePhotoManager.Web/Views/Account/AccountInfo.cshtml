@@ -1,0 +1,50 @@
+﻿@model UserProfile
+<div class="user-info">
+
+    @* guest *@
+    @if (Model == null)
+    {
+        @Html.ActionLink("Register", "CreateNewAccount", new { controller = "Account" }, new { @class = "link-header" })
+        @Html.ActionLink("Log In", "Login", new { controller = "Account" }, new { @class = "link-header" })
+
+        <table>
+            <tr>
+                <td><img src="@Url.Action("GetIcon", new {controller="Account"})" class="icon-header" /></td>
+                <td></td>
+                <td>@Html.ActionLink("Photo Manager", "Index", new { controller = "Home" }, new { @class = "text-header" })</td>
+                <td>@Html.ActionLink("Ajax Version", "Index", new { controller = "AjaxHome" }, new { @class = "text-header" })</td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        @Html.ActionLink("Sign Out", "SignOut", new { controller = "Account" }, new { @class = "link-header" })
+        <div class="link-header">Sign in as <a style="text-decoration: underline" onclick="change()">@Model.UserTag</a> @* TODO or not *@
+            <div id="panel" data-nav="true" data-snap="center" style="display: none">
+                <ul>
+                    <li>@Html.ActionLink("Sign Out", "SignOut", new { controller = "Account" }, new { @class = "link-header" })</li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <table>
+            <tr>
+                <td><img src="@Url.Action("GetIcon", new {controller="Account", userId=@Model.Id})" class="icon-header" /></td>
+                <td></td>
+                <td>@Html.ActionLink("Photo Manager", "Index", new { controller = "Home" }, new { @class = "text-header" })</td>
+                <td>@Html.ActionLink("Ajax Version", "Index", new { controller = "AjaxHome" }, new { @class = "text-header" })</td>
+            </tr>
+        </table>
+    }
+
+</div>
+
+<script>
+    function change() {
+        if ($('#panel').attr('style') == 'display: none') {
+            $('#panel').attr('style', 'display: block');
+        } else
+            $('#panel').attr('style', 'display: none');
+    }
+</script>

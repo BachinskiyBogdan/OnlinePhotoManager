@@ -1,0 +1,1 @@
+This is just example of using unobtrusive ajax, not a real practical using of this technology.

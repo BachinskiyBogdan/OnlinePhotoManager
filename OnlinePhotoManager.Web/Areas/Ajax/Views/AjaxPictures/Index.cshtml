@@ -1,0 +1,16 @@
+﻿
+
+<div class="body">
+    <div id="ajax-picture-container">
+        
+        @Html.Action("GetPictureData", new
+        {
+            controller = "AjaxPictures",
+            ViewBag.albumName,
+            ViewBag.userName,
+            ViewBag.pictureName,
+            ViewBag.searchRequest,
+            ViewBag.index
+        })
+    </div>
+</div>

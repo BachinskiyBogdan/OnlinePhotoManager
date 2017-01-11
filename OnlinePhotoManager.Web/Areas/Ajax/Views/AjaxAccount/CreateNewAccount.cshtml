@@ -1,0 +1,83 @@
+﻿@model OnlinePhotoManager.Web.Models.UserViewModel
+
+@{
+    ViewBag.Title = "CreateNewAccount";
+}
+
+<div class="body body-edit">
+    <h2>CreateNewAccount</h2>
+    
+    @using (Html.BeginForm("CreateNewAccount", "Account", 
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary();
+        <table>
+            <tr>
+                <td>@Html.LabelFor(x => x.UserTag)</td>
+                <td>@Html.EditorFor(x=> x.UserTag)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Password)</td>
+                <td>@Html.EditorFor(x => x.Password)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Password2)</td>
+                <td>@Html.EditorFor(x => x.Password2)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Email)</td>
+                <td>@Html.EditorFor(x => x.Email)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Email2)</td>
+                <td>@Html.EditorFor(x => x.Email2)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.FirstName)</td>
+                <td>@Html.EditorFor(x => x.FirstName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.LastName)</td>
+                <td>@Html.EditorFor(x => x.LastName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.DateOfBirth)</td>
+                <td>@Html.EditorFor(x => x.DateOfBirth)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.IsPremium)</td>
+                <td>@Html.EditorFor(x => x.IsPremium)</td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">
+                    <img src="" id="account-icon" style="display: none"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Choose Icon: <input type="file" name="image" onchange="PreviewImg(this)"/></p>
+                </td>
+            </tr>
+        </table>
+    <div class="submit"><input type="submit" value="Create new Account" /></div>
+
+    }
+
+    @section scripts{
+        <script language="javascript" type="text/javascript">
+            function PreviewImg(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    $('#account-icon').attr('style', 'display: block');
+                    reader.onload = function(e) {
+                        $('#account-icon').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+    }
+
+</div>

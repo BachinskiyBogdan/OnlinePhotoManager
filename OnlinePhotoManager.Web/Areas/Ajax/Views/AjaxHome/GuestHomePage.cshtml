@@ -1,0 +1,49 @@
+﻿@model IList<Picture>
+
+@{
+    ViewBag.Title = "GuestHomePage";
+    var cur = 0;
+    var temp = 0;
+}
+
+<script>
+    function showAdvancedSearch() {
+        if ($('.advanced-search-block').attr('style') == "display: block") {
+            $('.advanced-search-block').attr('style', 'display: none');
+        } else {
+            $('.advanced-search-block').attr('style', 'display: block');
+        }
+    }
+</script>
+
+@section search
+{
+    <div class="search-block">
+        @using (Html.BeginForm("GuestHomePage", "AjaxHome", FormMethod.Get, new {@class="search"}))
+        {
+            @Html.TextBox("searchRequest", null, new {@class="search-box"})
+            <input type="submit" value="SEARCH" class="search-button" />
+        }
+        <input type="button" value="ADVANCED SEARCH" class="search-button" onclick="showAdvancedSearch()" />
+    </div>
+    <div class="advanced-search-block">
+        @Html.Action("AdvanceSearch", "AjaxHome", new { ViewBag.albumName })
+    </div>
+}
+
+    <div class="body">
+    
+        <h2>GuestHomePage</h2>
+        <div class="albums-container">
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <div class="album-container">
+                    <img src="@Url.Action("GetPictureIcon", new { controller = "AjaxPictures", pictureId = Model[i].Id })" />
+                    <div class="albums-container-div">@Model[i].Name</div>
+                </div>
+            }
+        </div>
+        @Html.Action("Navigation", new { actionRequest = "Guest", searchRequest = ViewBag.SearchRequest as string })
+    </div>
+
+    

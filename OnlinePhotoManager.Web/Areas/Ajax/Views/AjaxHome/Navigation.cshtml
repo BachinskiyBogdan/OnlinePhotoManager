@@ -1,0 +1,13 @@
+﻿@model System.Int32
+
+@{
+    var epp = (int) ViewBag.ElementsPerPage;
+    var cnt = Math.Ceiling((double) Model/epp);
+    var search = ViewBag.SearchRequest;
+}
+<div class="navigation-container">
+    @for (var i = 1; i <= cnt; i++)
+    {
+        @Html.ActionLink(i.ToString("D"), "GuestHomePage", new {searchRequest = search,  page = i }, new { @class = "navigation-links" })
+    }
+</div>

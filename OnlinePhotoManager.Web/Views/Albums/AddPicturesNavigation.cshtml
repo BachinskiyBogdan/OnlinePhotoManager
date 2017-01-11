@@ -1,0 +1,14 @@
+﻿@model int
+
+@{
+    var pages = Math.Ceiling((double)Model / ViewBag.picturesPerPage);
+}
+
+<div class="navigation-container">
+    @for (var i = 1; i <= pages; i++)
+    {
+        @Html.RouteLink(i.ToString("D"), "AlbumScheme",
+        new { action = "AddPictures", controller = "Albums", ViewBag.albumName, ViewBag.searchRequest, page = i },
+        new { @class = "navigation-links" })
+    }
+</div>

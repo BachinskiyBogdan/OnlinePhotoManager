@@ -1,0 +1,32 @@
+﻿@model IList<Picture>
+    
+
+@for (var i = 0; i < Model.Count; i++)
+{
+    <div class="album-container">
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#ajax-main-body"
+           data-ajax-loading="#ajax-loading-container" data-ajax-loading-duration="2000"
+           data-ajax-url="@Url.RouteUrl("Ajax_PictureScheme", new
+                          {
+                              action = "Index",
+                              controller = "AjaxPictures",
+                              ViewBag.albumName,
+                              ViewBag.userName,
+                              pictureName = Model[i].Name,
+                              ViewBag.searchRequest,
+                              index = ViewBag.index + i
+                          })"
+           href="">
+            <img src="@Url.Action("GetPictureIcon", new { controller = "AjaxPictures", pictureId = Model[i].Id })" />
+            <div class="albums-container-div">@Model[i].Name</div>
+            <div class="checkbox-indicator checkbox-container">
+                @if (Model[i].IsPrivate) {
+                    <div class="private"></div>
+                } else {
+                    <div class="public"></div>
+                }
+            </div>
+
+        </a>
+    </div>
+}

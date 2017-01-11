@@ -1,0 +1,44 @@
+﻿@model IList<Album>
+
+@{
+    ViewBag.Title = "UserHomePage";
+    var cur = 0;
+    var temp = 0;
+}
+
+@section search
+{
+    <div class="search-block">
+        @using (Html.BeginForm("UserHomePage", "Home", FormMethod.Post, new { @class = "search" }))
+        {
+            @Html.TextBox("searchRequest", null, new { @class = "search-box" })
+            <input type="submit" value="SEARCH" class="search-button" />
+        }
+        @using (Html.BeginForm("AdvancedSearch", "Album", FormMethod.Post, new { @class = "advanced-search" }))
+        {
+            <input type="submit" value="ADVANCED SEARCH" class="search-button" />
+        }
+    </div>
+
+}
+
+<div class="body">
+    <h2>UserHomePage</h2>
+    <table>
+
+        <tr>
+            @for (cur = cur; cur < Model.Count() && cur < temp + 3; cur++)
+            {
+                <td>
+                    <button>
+                        <img src="@Html.Action("GetAlbumPicture", new {id = Model[0].Id})" />
+                    </button>
+                </td>
+            }
+            @{ temp = cur; }
+        </tr>
+    </table>
+
+
+    @Html.Action("Navigation", new { actionRequest = "User", searchRequest = ViewBag.SearchRequest as string})
+</div>

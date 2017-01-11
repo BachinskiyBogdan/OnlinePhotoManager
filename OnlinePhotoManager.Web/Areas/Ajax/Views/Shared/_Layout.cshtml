@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+</head>
+    <body>
+        <!--User Info Block-->
+        @Html.Action("AccountInfo", new { controller = "AjaxAccount" })
+        
+        <div class="ajax-loading-container" id="ajax-loading-container">
+            <!-- when ajax page is loading! -->
+            LOADING.....
+        </div>
+        <div id="ajax-main-body">
+            <!--Search Block. Implementing in home / album categories-->
+            @RenderSection("search", required: false)
+
+            @RenderSection("editBlock", required: false)
+            
+            <div>
+                @RenderBody()
+            </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @RenderSection("scripts", required: false)
+        </div>
+    </body>
+</html>

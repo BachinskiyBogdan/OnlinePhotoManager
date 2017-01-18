@@ -146,7 +146,7 @@ namespace OnlinePhotoManager.Web.Controllers
             var picture = album.Pictures.FirstOrDefault(p => p.Name == pictureName);
             if (picture == null)
                 return View("Error", "_Layout", "Invalid picture name.");
-
+            Session.Add("EditPicture", picture);
             ViewBag.index = index;
             ViewBag.albumName = albumName;
             ViewBag.searchRequest = searchRequest;
@@ -157,6 +157,8 @@ namespace OnlinePhotoManager.Web.Controllers
         [ValidateAntiForgeryToken()] 
         public ActionResult EditPicture(Picture picture, HttpPostedFileBase image)
         {
+            if ((Session["EditPicture"] as Picture).Id != picture.Id)
+                return RedirectToAction("Error", "_Layout", "Hidden value was changed when you was editing an album. Don't do this anymore.");
             var n = RouteData.Values["albumName"].ToString();
             var album = _albumRepository.Albums.FirstOrDefault(a => a.Name == n);
             if (album == null)

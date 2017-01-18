@@ -281,12 +281,15 @@ namespace OnlinePhotoManager.Web.Controllers
         public ActionResult EditAlbum(string albumName)
         {
             var album = _albumRepository.Albums.FirstOrDefault(a => a.Name == albumName);
+            Session.Add("EditAlbum", album);
             return View(album);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditAlbum(Album album, HttpPostedFileBase image)
         {
+            if ((Session["EditAlbum"] as Album).Id != album.Id)
+                return RedirectToAction("Error","_Layout", "Hidden value was changed when you was editing an album. Don't do this anymore.");
             var r = _albumRepository.Albums.FirstOrDefault(a => a.Id == album.Id);
             if(r.Name != album.Name && _albumRepository.Albums.Any(a=> a.Name == album.Name))
                 ModelState.AddModelError("", "Album with such name already exist. Use previous or another.");
